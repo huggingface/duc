@@ -38,6 +38,7 @@ static char *opt_palette = NULL;
 static bool opt_tooltip = false;
 static int opt_ring_gap = 4;
 static double opt_dpi = 96.0;
+static int opt_list_size = 40;
 
 static struct param *param_list = NULL;
 
@@ -398,7 +399,7 @@ static void do_index(duc *duc, duc_graph *graph, duc_dir *dir)
 
 		struct duc_dirent *e;
 		int n = 0;
-		while((n++ < 40) && (e = duc_dir_read(dir, st, DUC_SORT_SIZE)) != NULL) {
+		while((n++ < opt_list_size) && (e = duc_dir_read(dir, st, DUC_SORT_SIZE)) != NULL) {
 			char siz[32];
 			duc_human_size(&e->size, st, opt_bytes, siz, sizeof siz);
 			printf("  <tr><td class=name>");
@@ -561,6 +562,7 @@ static struct ducrc_option options[] = {
 	{ &opt_header,    "header",     0,  DUCRC_TYPE_STRING, "select HTML file to include as header" },
 	{ &opt_levels,    "levels",    'l', DUCRC_TYPE_INT,    "draw up to ARG levels deep [4]" },
 	{ &opt_list,      "list",       0,  DUCRC_TYPE_BOOL,   "generate table with file list" },
+	{ &opt_list_size, "list-size",  0,  DUCRC_TYPE_INT,    "list size [40]" },
 	{ &opt_palette,   "palette",    0,  DUCRC_TYPE_STRING, "select palette",
 		"available palettes are: size, rainbow, greyscale, monochrome, classic" },
 	{ &opt_ring_gap,  "ring-gap",   0,  DUCRC_TYPE_INT,    "leave a gap of VAL pixels between rings" },
